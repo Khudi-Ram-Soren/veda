@@ -15,3 +15,14 @@ export const courseLevelEnum = {
 };
 
 export const availableCourseLevel = Object.values(levelEnum);
+
+export const coursePurchaseStatusEnum = {
+  PENDING: "PENDING",
+  COMPLETED: "COMPLETED",
+  FAILD: "FAILD",
+  REFUNDED: "REFUNDED",
+};
+
+export const availableCoursePurchaseStatus = Object.values(
+  coursePurchaseStatusEnum
+);
