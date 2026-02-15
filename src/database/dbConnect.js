@@ -1,4 +1,7 @@
 import mongoose from "mongoose";
+import dns from "dns";
+dns.getServers();
+dns.setServers(["1.1.1.1"]);
 
 const MAX_RETRY = 3;
 const RETRY_INTERVAL = 5000;
@@ -47,16 +50,17 @@ class DatabaseConnection {
         maxPoolSize: 10,
         serverSelectionTimeoutMS: 5000,
         socketTimeoutMS: 45000,
-        famliy: 4,
+        family: 4,
       };
 
-      await mongoose.connect(
+      const res = await mongoose.connect(
         `${process.env.MONGODB_URI}/veda`,
         connectionOptions
       );
 
       this.retryCount = 0;
     } catch (error) {
+      console.log("data base connection faild Error", error);
       await this.handleConnectionError();
     }
   }
@@ -70,7 +74,9 @@ class DatabaseConnection {
       );
 
       await new Promise((resolve) => {
-        setTimeout((resolve) => resolve, RETRY_INTERVAL);
+        setTimeout(() => {
+          resolve();
+        }, RETRY_INTERVAL);
       });
 
       return this.connect();
