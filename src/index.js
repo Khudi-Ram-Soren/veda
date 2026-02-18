@@ -55,7 +55,7 @@ app.use((_, res) => {
   });
 });
 
-app.use((err, _, res, _) => {
+app.use((err, _, res, next) => {
   console.log(err);
   res.status(err.status || 500).json({
     status: "Error",
