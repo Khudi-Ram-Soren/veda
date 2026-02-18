@@ -20,3 +20,15 @@ export const uploadMedia = async (file) => {
     console.log(error);
   }
 };
+
+export const deleteMediaFromCloudinary = async (publicId) => {
+  try {
+    const response = await cloudinary.uploader.destroy(publicId, {
+      resource_type: "image",
+    });
+    return response;
+  } catch (error) {
+    console.log("error in deleting media from cloudinary");
+    console.log(error);
+  }
+};
